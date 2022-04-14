@@ -15,8 +15,12 @@
  */
 package com.example.android.miwok;
 
+import android.content.Intent;
 import android.os.Bundle;
-// import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,5 +31,59 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
+
+
+        // Set OnClickListener for numbers
+        TextView numbers = (TextView) findViewById(R.id.numbers);
+
+        numbers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openNumbersActivity = new Intent(MainActivity.this, NumbersActivity.class);
+
+                startActivity(openNumbersActivity);
+            }
+        });
+
+        // Set OnClickListener for colors
+        TextView colors = (TextView) findViewById(R.id.colors);
+
+        colors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openColorsActivity = new Intent(MainActivity.this, ColorsActivity.class);
+
+                startActivity(openColorsActivity);
+            }
+        });
+
+        // Set OnClickListener for family
+        TextView family = (TextView) findViewById(R.id.family);
+
+        family.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openFamilyActivity = new Intent(MainActivity.this, FamilyActivity.class);
+
+                startActivity(openFamilyActivity);
+            }
+        });
+
+        // Set OnClickListener for phrases
+        TextView phrases = (TextView) findViewById(R.id.phrases);
+
+        phrases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openPhrasesActivity = new Intent(MainActivity.this, PhrasesActivity.class);
+
+                startActivity(openPhrasesActivity);
+            }
+        });
+
+
     }
+
+
+
 }
