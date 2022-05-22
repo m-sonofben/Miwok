@@ -33,9 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        // Set OnClickListener for numbers
         TextView numbers = (TextView) findViewById(R.id.numbers);
-
         numbers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,9 +43,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for colors
-        TextView colors = (TextView) findViewById(R.id.colors);
 
+        TextView colors = (TextView) findViewById(R.id.colors);
         colors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,9 +54,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for family
-        TextView family = (TextView) findViewById(R.id.family);
 
+        TextView family = (TextView) findViewById(R.id.family);
         family.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for phrases
-        TextView phrases = (TextView) findViewById(R.id.phrases);
 
+        TextView phrases = (TextView) findViewById(R.id.phrases);
         phrases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
