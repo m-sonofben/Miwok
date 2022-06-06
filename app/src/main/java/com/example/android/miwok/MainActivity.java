@@ -15,70 +15,79 @@
  */
 package com.example.android.miwok;
 
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+
+public class MainActivity extends FragmentActivity {
+
+    private static final int NUM_CATEGORIES = 4;
+
+    private ViewPager2 viewPager;
+
+    private FragmentStateAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
+        viewPager = findViewById(R.id.viewpager);
+        pagerAdapter = new CategoryAdapter(this);
+        viewPager.setAdapter(pagerAdapter);
 
-        TextView numbers = (TextView) findViewById(R.id.numbers);
-        numbers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openNumbersActivity = new Intent(MainActivity.this, NumbersActivity.class);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
-                startActivity(openNumbersActivity);
-            }
-        });
-
-
-        TextView colors = (TextView) findViewById(R.id.colors);
-        colors.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openColorsActivity = new Intent(MainActivity.this, ColorsActivity.class);
-
-                startActivity(openColorsActivity);
-            }
-        });
-
-
-        TextView family = (TextView) findViewById(R.id.family);
-        family.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openFamilyActivity = new Intent(MainActivity.this, FamilyActivity.class);
-
-                startActivity(openFamilyActivity);
-            }
-        });
-
-
-        TextView phrases = (TextView) findViewById(R.id.phrases);
-        phrases.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openPhrasesActivity = new Intent(MainActivity.this, PhrasesActivity.class);
-
-                startActivity(openPhrasesActivity);
-            }
-        });
-
-
+//        tabLayout.setupWithViewPager(viewPager);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText("Object " + (position + 1))).attach();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
+    }
 
+    //simple pager adapter that represents 4 category fragments
+    private static class CategoryAdapter extends FragmentStateAdapter {
+        public CategoryAdapter(FragmentActivity fa) {
+            super(fa);
+        }
+
+        @NonNull
+        @Override
+        public Fragment createFragment(int position) {
+            if (position == 0) {
+                return new NumbersFragment();
+            } else if (position == 1) {
+                return new FamilyFragment();
+            } else if (position == 2) {
+                return new ColorsFragment();
+            } else {
+                return new PhrasesFragment();
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return NUM_CATEGORIES;
+        }
+    }
 
 }
+
