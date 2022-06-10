@@ -47,8 +47,25 @@ public class MainActivity extends FragmentActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
-//        tabLayout.setupWithViewPager(viewPager);
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText("Object " + (position + 1))).attach();
+        new TabLayoutMediator(tabLayout, viewPager,
+                new TabLayoutMediator.TabConfigurationStrategy() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        switch(position) {
+                            case 0:
+                                tab.setText("Numbers");
+                                break;
+                            case 1:
+                                tab.setText("Family");
+                                break;
+                            case 2:
+                                tab.setText("Colours");
+                                break;
+                            case 3:
+                                tab.setText("Phrases");
+                        }
+                    }
+                }).attach();
     }
 
     @Override
